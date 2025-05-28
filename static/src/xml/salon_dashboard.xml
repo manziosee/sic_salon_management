@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="sic_salon_management.SalonDashboard" owl="1">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3" t-on-click="() => openView('salon.booking', [['state','=','confirmed']])">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h5>Confirmed Bookings</h5>
+                            <h3 t-esc="state.bookings"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3" t-on-click="() => openView('salon.order')">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h5>Total Orders</h5>
+                            <h3 t-esc="state.orders"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3" t-on-click="() => openView('salon.order', [['stage_id.state','in',['done']]])">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h5>Completed Works</h5>
+                            <h3 t-esc="state.recent"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3" t-on-click="() => openView('res.partner', [['partner_salon','=',true]])">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h5>Clients</h5>
+                            <h3 t-esc="state.clients"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Chairs</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <t t-foreach="state.chairs" t-as="chair" t-key="chair.id">
+                                    <div class="col-md-3 mb-3">
+                                        <div class="card" t-on-click="() => openView('salon.order', [['chair_id','=',chair.id]])">
+                                            <div class="card-body text-center">
+                                                <h5 t-esc="chair.name"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

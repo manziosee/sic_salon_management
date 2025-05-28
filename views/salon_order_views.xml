@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Mail Templates -->
+        <record id="mail_template_salon_approved" model="mail.template">
+            <field name="name">Salon Booking Approved</field>
+            <field name="model_id" ref="salon_management.model_salon_booking"/>
+            <field name="email_from">{{ object.company_id.email or '' }}</field>
+            <field name="subject">Booking Confirmed - {{ object.name }}</field>
+            <field name="email_to">{{ object.email }}</field>
+            <field name="body_html" type="html">
+                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                    <h2 style="color: #875A7B;">Booking Confirmation</h2>
+                    <p>Dear <t t-out="object.name"/>,</p>
+                    
+                    <p>Your booking has been confirmed. Here are the details:</p>
+                    
+                    <div style="background: #f9f9f9; padding: 15px; border-radius: 5px; margin: 15px 0;">
+                        <p><strong>Date &amp; Time:</strong> <t t-out="object.time"/></p>
+                        <p><strong>Services:</strong></p>
+                        <ul>
+                            <t t-foreach="object.service_ids" t-as="service">
+                                <li><t t-out="service.name"/> - <t t-out="service.price"/></li>
+                            </t>
+                        </ul>
+                        <p><strong>Stylist:</strong> <t t-out="object.chair_id.user_id.name or 'Not assigned'"/></p>
+                    </div>
+                    
+                    <p>We look forward to seeing you!</p>
+                    
+                    <p>Best regards,<br/>
+                    <t t-out="object.company_id.name"/></p>
+                </div>
+            </field>
+        </record>
+        
+        <record id="mail_template_salon_rejected" model="mail.template">
+            <field name="name">Salon Booking Rejected</field>
+            <field name="model_id" ref="salon_management.model_salon_booking"/>
+            <field name="email_from">{{ object.company_id.email or '' }}</field>
+            <field name="subject">Booking Declined - {{ object.name }}</field>
+            <field name="email_to">{{ object.email }}</field>
+            <field name="body_html" type="html">
+                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                    <h2 style="color: #875A7B;">Booking Declined</h2>
+                    <p>Dear <t t-out="object.name"/>,</p>
+                    
+                    <p>We regret to inform you that your booking request has been declined.</p>
+                    
+                    <p>The selected time slot is not available. Please try booking another time or contact us for assistance.</p>
+                    
+                    <p>We apologize for any inconvenience caused.</p>
+                    
+                    <p>Best regards,<br/>
+                    <t t-out="object.company_id.name"/></p>
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>

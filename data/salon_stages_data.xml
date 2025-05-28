@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <!-- Salon stage demo data-->
+        <record id="salon_management.salon_stage_00" model="salon.stage">
+            <field name="name">New Request</field>
+        </record>
+        <record id="salon_management.salon_stage_01" model="salon.stage">
+            <field name="name">Confirmed</field>
+        </record>
+        <record id="salon_management.salon_stage_02" model="salon.stage">
+            <field name="name">Ongoing</field>
+        </record>
+        <record id="salon_management.salon_stage_03" model="salon.stage">
+            <field name="name">Done</field>
+        </record>
+    </data>
+</odoo>
