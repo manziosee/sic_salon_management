@@ -14,7 +14,7 @@ class SalonBookingWeb(http.Controller):
         for chair in request.env['salon.chair'].sudo().search([]):
             orders_count = request.env['salon.order'].search_count([
                 ("chair_id", "=", chair.id),
-                ("state", "in", ['confirmed', 'ongoing'])
+                ("stage_id", "in", [2, 3])
             ])
             chairs.append({
                 'name': chair.name,
@@ -33,7 +33,7 @@ class SalonBookingWeb(http.Controller):
         date_and_time = local_tz.localize(
             datetime.strptime(dates_time, '%Y-%m-%d %H:%M:%S')
         ).astimezone(pytz.UTC).replace(tzinfo=None)
-        
+
         booking = request.env['salon.booking'].create({
             'name': name,
             'phone': phone,
@@ -41,7 +41,7 @@ class SalonBookingWeb(http.Controller):
             'email': email,
             'chair_id': chair,
             'service_ids': [(6, 0, service_lists)],
-            'state': 'new_request'
+            'state': 'pending'
         })
         return {'result': True}
 
@@ -57,14 +57,14 @@ class SalonBookingWeb(http.Controller):
         date_end = local_tz.localize(
             datetime(year, month, day, hour=23, minute=59, second=59)
         ).astimezone(pytz.UTC).replace(tzinfo=None)
-        
+
         orders = request.env['salon.order'].search([
             ('chair_id.active_booking_chairs', '=', True),
-            ('state', 'in', ['new_request', 'confirmed', 'ongoing']),
+            ('stage_id', 'in', [1, 2, 3]),
             ('start_time', '>=', date_start),
             ('start_time', '<=', date_end)
         ])
-        
+
         result = {}
         for order in orders:
             start_time = fields.Datetime.to_string(
@@ -73,7 +73,7 @@ class SalonBookingWeb(http.Controller):
             end_time = fields.Datetime.to_string(
                 pytz.UTC.localize(order.end_time).astimezone(local_tz).replace(tzinfo=None)
             )[11:16]
-            
+
             if order.chair_id.id not in result:
                 result[order.chair_id.id] = {
                     'name': order.chair_id.name,
@@ -108,14 +108,14 @@ class SalonBookingWeb(http.Controller):
         date_end = local_tz.localize(
             datetime.combine(date_check, time.max)
         ).astimezone(pytz.UTC).replace(tzinfo=None)
-        
+
         orders = request.env['salon.order'].search([
             ('chair_id.active_booking_chairs', '=', True),
-            ('state', 'in', ['new_request', 'confirmed', 'ongoing']),
+            ('stage_id', 'in', [1, 2, 3]),
             ('start_time', '>=', date_start),
             ('start_time', '<=', date_end)
         ])
-        
+
         return request.render(
             'salon_management.salon_booking_form', {
                 'chair_details': request.env['salon.chair'].search([]),

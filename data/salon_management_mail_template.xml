@@ -21,11 +21,11 @@
                                 <li><t t-out="service.name"/> - <t t-out="service.price"/></li>
                             </t>
                         </ul>
-                        <p><strong>Total Amount:</strong> <t t-out="object.amount"/></p>
-                        <p><strong>Stylist:</strong> <t t-out="object.stylist_id.name or 'Not assigned'"/></p>
+                        <p><strong>Stylist:</strong> <t t-out="object.chair_id.user_id.name or 'Not assigned'"/></p>
                     </div>
                     <p>We look forward to seeing you!</p>
-                    <p>Best regards,<br/><t t-out="object.company_id.name"/></p>
+                    <p>Best regards,<br/>
+                    <t t-out="object.company_id.name"/></p>
                 </div>
             </field>
         </record>
@@ -43,7 +43,8 @@
                     <p>We regret to inform you that your booking request has been declined.</p>
                     <p>The selected time slot is not available. Please try booking another time or contact us for assistance.</p>
                     <p>We apologize for any inconvenience caused.</p>
-                    <p>Best regards,<br/><t t-out="object.company_id.name"/></p>
+                    <p>Best regards,<br/>
+                    <t t-out="object.company_id.name"/></p>
                 </div>
             </field>
         </record>

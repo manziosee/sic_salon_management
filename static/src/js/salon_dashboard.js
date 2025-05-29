@@ -16,7 +16,7 @@ class SalonDashboard extends Component {
             clients: 0,
             chairs: []
         });
-        
+
         onMounted(() => this.loadData());
     }
 
@@ -27,19 +27,19 @@ class SalonDashboard extends Component {
             [],
             {}
         );
-        
+
         this.state.bookings = data.bookings;
         this.state.orders = data.orders;
         this.state.recent = data.recent;
         this.state.clients = data.clients;
-        
+
         const chairs = await this.orm.call(
             "salon.chair",
             "search_read",
             [],
             { fields: ["id", "name"] }
         );
-        
+
         this.state.chairs = chairs;
     }
 

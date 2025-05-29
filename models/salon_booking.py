@@ -1,37 +1,35 @@
 from odoo import models, fields, api
 
 class SalonBooking(models.Model):
-    _name = 'salon.booking'
-    _description = 'Salon Booking'
+    _inherit = 'salon.booking'
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
-    name = fields.Char(string="Customer Name", required=True, tracking=True)
-    phone = fields.Char(string="Phone Number", tracking=True)
-    email = fields.Char(string="Email", tracking=True)
-    time = fields.Datetime(string="Appointment Time", tracking=True)
-
-    service_ids = fields.Many2many('salon.service', string="Services", tracking=True)
-    chair_id = fields.Many2one('salon.chair', string="Stylist Chair", tracking=True)
-
     state = fields.Selection([
-        ('New Request', 'New Request'),
-        ('Confirmed', 'Confirmed'),
-        ('Ongoing', 'Ongoing'),
-        ('Done', 'Done')
-    ], default='draft', string="Status", tracking=True)
+        ('new_request', 'New Request'),
+        ('confirmed', 'Confirmed'),
+        ('ongoing', 'Ongoing'),
+        ('done', 'Done')
+    ], default='new_request', string="Status", tracking=True)
 
-    # Optional method to approve booking
-    def action_approve(self):
+    def action_confirm(self):
         for rec in self:
-            rec.state = 'approved'
-            template = self.env.ref('salon_management.mail_template_salon_approved')
+            rec.state = 'confirmed'
+            template = self.env.ref('sic_salon_management.mail_template_salon_approved')
             if template and rec.email:
                 template.send_mail(rec.id, force_send=True)
 
-    # Optional method to reject booking
-    def action_reject(self):
+    def action_start(self):
         for rec in self:
-            rec.state = 'rejected'
-            template = self.env.ref('salon_management.mail_template_salon_rejected')
+            rec.state = 'ongoing'
+            template = self.env.ref('sic_salon_management.mail_template_salon_ongoing')
             if template and rec.email:
                 template.send_mail(rec.id, force_send=True)
+            
+
+    def action_done(self):
+        for rec in self:
+            rec.state = 'done'
+            template = self.env.ref('sic_salon_management.mail_template_salon_done')
+            if template and rec.email:
+                template.send_mail(rec.id, force_send=True)
+                
