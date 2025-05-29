@@ -11,8 +11,9 @@
     """,
     'author': 'SIC Rwanda',
     'website': 'https://www.sicrwanda.com',
-    'depends': ['salon_management', 'mail'],
+    'depends': ['salon_management'],
     'data': [
+        'security/ir.model.access.csv',
         'data/salon_management_mail_template.xml',
         'data/salon_stages_data.xml',
         'views/salon_booking_views.xml',
