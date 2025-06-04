@@ -20,31 +20,22 @@ SIC Salon Management is an Odoo module that extends the functionality of the exi
 
 ```
 sic_salon_management/
-│
-├── __init__.py
-├── __manifest__.py
-├── controllers/
-│   ├── __init__.py
-│   └── salon_management.py
+├── init.py
+├── manifest.py
+
 ├── data/
-│   ├── salon_management_mail_template.xml
-│   └── salon_stages_data.xml
+│ └── salon_stages_data.xml
+
 ├── models/
-│   ├── __init__.py
-│   ├── salon_booking.py
-│   └── salon_order.py
-├── security/
-│   └── ir.model.access.csv
+│ ├── init.py
+│ ├── salon_stage.py
+│ ├── salon_booking.py
+│ └── salon_order.py
+
 ├── views/
-│   ├── salon_booking_views.xml
-│   ├── salon_order_views.xml
-│   └── salon_management_menus.xml
-└── static/
-    └── src/
-        ├── js/
-        │   └── salon_dashboard.js
-        └── xml/
-            └── salon_dashboard.xml
+│ ├── salon_booking_views.xml
+│ ├── salon_order_views.xml
+│ └── salon_stage_views.xml
 ```
 
 ---
