@@ -3,16 +3,14 @@
 [![Odoo](https://img.shields.io/badge/Odoo-17.0-blueviolet?logo=odoo)](https://www.odoo.com/)
 [![Python](https://img.shields.io/badge/Python-3.9%2B-blue?logo=python)](https://www.python.org/)
 
-SIC Salon Management is an Odoo module that extends the functionality of the existing `salon_management` module. It offers enhanced features for managing salon bookings, orders, and customer interactions, including appointment reminders and improved status tracking.
+SIC Salon Management is an Odoo module that extends the functionality of the existing `salon_management` module. It offers enhanced features for managing salon bookings, orders, and customer interactions, including improved status tracking.
 
 ---
 
 ## ✨ Features
 
 - **Enhanced Status Tracking:** Visual, color-coded stages for bookings and orders.
-- **Appointment Reminders:** Automated reminders for upcoming appointments.
 - **Improved Workflow:** Streamlined operations for salon management.
-- **Mail Integration:** Automated emails for booking confirmations and reminders.
 
 ---
 
