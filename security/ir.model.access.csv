@@ -1,5 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_salon_booking_user,salon.booking.user,salon_management.model_salon_booking,base.group_user,1,1,1,0
-access_salon_booking_manager,salon.booking.manager,salon_management.model_salon_booking,base.group_system,1,1,1,1
-access_salon_order_user,salon.order.user,salon_management.model_salon_order,base.group_user,1,1,1,0
-access_salon_order_manager,salon.order.manager,salon_management.model_salon_order,base.group_system,1,1,1,1

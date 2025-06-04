@@ -2,23 +2,14 @@ from odoo import models, fields, api
 
 class SalonOrder(models.Model):
     _inherit = 'salon.order'
-    _inherit = ['mail.thread', 'mail.activity.mixin']
 
-    state = fields.Selection([
-        ('draft', 'Draft'),
-        ('confirmed', 'Confirmed'),
-        ('invoiced', 'Invoiced'),
-        ('done', 'Done')
-    ], default='draft', string="Status", tracking=True)
+    stage_id = fields.Many2one(
+        'salon.stage', string='Stage',
+        default=lambda self: self.env.ref('sic_salon_management.salon_stage_new_request', raise_if_not_found=False),
+        group_expand='_read_group_stage_ids',
+        tracking=True,
+    )
 
-    def action_confirm(self):
-        for rec in self:
-            rec.state = 'confirmed'
-
-    def action_invoice(self):
-        for rec in self:
-            rec.state = 'invoiced'
-
-    def action_done(self):
-        for rec in self:
-            rec.state = 'done'
+    @api.model
+    def _read_group_stage_ids(self, stages, domain, order):
+        return self.env['salon.stage'].search([]).sorted('sequence')
