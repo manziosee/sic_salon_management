@@ -28,11 +28,10 @@ sic_salon_management/
 │ ├── init.py
 │ ├── salon_stage.py
 │ ├── salon_booking.py
-│ └── salon_order.py
+
 
 ├── views/
 │ ├── salon_booking_views.xml
-│ ├── salon_order_views.xml
 │ └── salon_stage_views.xml
 ```
 

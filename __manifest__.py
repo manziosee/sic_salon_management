@@ -3,10 +3,10 @@
     'name': 'SIC Salon Management',
     'version': '1.0.0',
     'category': 'Services',
-    'summary': 'Salon Management Customizations with Colored Stages',
+    'summary': 'Custom colored stages and workflow for salon bookings',
     'description': """
-        Extend salon_management with custom colored stages (via decorations) 
-        and limited stage workflow display on bookings and orders.
+        Extends salon_management by adding colored stages with Cancel and custom workflow on salon bookings.
+        Adds views for stages since base module has none.
     """,
     'author': 'SIC Rwanda',
     'website': 'https://www.sicrwanda.com',
