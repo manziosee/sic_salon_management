@@ -1,31 +1,30 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <odoo>
   <data noupdate="1">
-
-    <!-- Define the 5 booking stages -->
 
     <record id="sic_salon_stage_new_request" model="salon.stage">
       <field name="name">New Request</field>
       <field name="sequence">1</field>
+      <field name="color">1</field>
     </record>
 
     <record id="sic_salon_stage_confirmed" model="salon.stage">
       <field name="name">Confirmed</field>
       <field name="sequence">2</field>
+      <field name="color">3</field>
     </record>
 
     <record id="sic_salon_stage_ongoing" model="salon.stage">
       <field name="name">Ongoing</field>
       <field name="sequence">3</field>
+      <field name="color">4</field>
     </record>
 
     <record id="sic_salon_stage_done" model="salon.stage">
       <field name="name">Done</field>
       <field name="sequence">4</field>
+      <field name="color">2</field>
     </record>
-
-    <!-- Reuse existing Cancel stage from salon_management -->
-    <record id="sic_salon_stage_cancel" model="salon.stage" eval="[(4, ref('salon_management.salon_stage_cancel'))]"/>
 
   </data>
 </odoo>

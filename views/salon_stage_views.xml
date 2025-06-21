@@ -1,38 +1,68 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <odoo>
+  <data>
+    <!-- Tree View for salon.stage -->
+    <record id="view_salon_stage_tree_sic" model="ir.ui.view">
+      <field name="name">salon.stage.tree.sic</field>
+      <field name="model">salon.stage</field>
+      <field name="arch" type="xml">
+        <tree string="Salon Stages"
+              decoration-danger="name == 'New Request'"
+              decoration-warning="name == 'Confirmed'"
+              decoration-info="name == 'Ongoing'"
+              decoration-success="name == 'Done'"
+              decoration-muted="name == 'Cancelled'">
+          <field name="name" widget="badge"/>
+          <field name="sequence"/>
+          <field name="color"/>
+        </tree>
+      </field>
+    </record>
 
-  <record id="view_salon_stage_tree_custom" model="ir.ui.view">
-    <field name="name">salon.stage.tree.sic.custom</field>
-    <field name="model">salon.stage</field>
-    <field name="inherit_id" ref="salon_management.salon_stage_tree_view"/>
-    <field name="arch" type="xml">
-      <xpath expr="//field[@name='color']" position="replace"/>
-      <xpath expr="//field[@name='name']" position="attributes">
-        <attribute name="widget">badge</attribute>
-        <attribute name="decoration-danger">name == 'New Request'</attribute>
-        <attribute name="decoration-warning">name == 'Confirmed'</attribute>
-        <attribute name="decoration-info">name == 'Ongoing'</attribute>
-        <attribute name="decoration-success">name == 'Done'</attribute>
-        <attribute name="decoration-bf">name == 'Cancel'</attribute>
-      </xpath>
-    </field>
-  </record>
-  
-  <record id="view_salon_stage_kanban_custom" model="ir.ui.view">
-    <field name="name">salon.stage.kanban.sic.custom</field>
-    <field name="model">salon.stage</field>
-    <field name="inherit_id" ref="salon_management.view_salon_stage_kanban"/>
-    <field name="arch" type="xml">
-      <xpath expr="//div[contains(@class, 'oe_kanban_color_')]" position="replace">
-        <div t-attf-class="'oe_kanban_color_' + (
-          ('danger' if record.name.raw_value == 'New Request' else '') or
-          ('warning' if record.name.raw_value == 'Confirmed' else '') or
-          ('info' if record.name.raw_value == 'Ongoing' else '') or
-          ('success' if record.name.raw_value == 'Done' else '') or
-          ('bf' if record.name.raw_value == 'Cancel' else '')
-        )"/>
-      </xpath>
-    </field>
-  </record>
+    <!-- Kanban View for salon.stage -->
+    <record id="view_salon_stage_kanban_sic" model="ir.ui.view">
+      <field name="name">salon.stage.kanban.sic</field>
+      <field name="model">salon.stage</field>
+      <field name="arch" type="xml">
+        <kanban class="oe_kanban_global_click">
+          <templates>
+            <t t-name="kanban-box">
+              <div t-attf-class="'oe_kanban_card oe_kanban_color_' + record.color.raw_value">
+                <div class="o_kanban_record_bottom">
+                  <strong><field name="name"/></strong>
+                </div>
+              </div>
+            </t>
+          </templates>
+        </kanban>
+      </field>
+    </record>
 
+    <!-- Action to open stages -->
+    <record id="action_salon_stage_sic" model="ir.actions.act_window">
+      <field name="name">Salon Stages</field>
+      <field name="res_model">salon.stage</field>
+      <field name="view_mode">kanban,tree,form</field>
+      <field name="view_ids" eval="[
+          (5, 0, 0),
+          (0, 0, {'view_mode': 'kanban', 'view_id': ref('view_salon_stage_kanban_sic')}),
+          (0, 0, {'view_mode': 'tree', 'view_id': ref('view_salon_stage_tree_sic')})
+      ]"/>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+          Manage the workflow stages for salon bookings here.
+        </p>
+      </field>
+    </record>
+
+    <!-- Menu: new root menu with submenu for stages -->
+    <menuitem id="menu_salon_stage_sic_root"
+              name="Salon Stages"
+              sequence="10"/>
+    <menuitem id="menu_salon_stage_sic"
+              name="Stages"
+              parent="menu_salon_stage_sic_root"
+              action="action_salon_stage_sic"
+              sequence="10"/>
+  </data>
 </odoo>
